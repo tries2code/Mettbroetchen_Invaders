@@ -14,6 +14,7 @@ void Score_panel::add_score() {
 	++score;
 	draw();
 }
+void Score_panel::reset_score() { score = 0; }
 int Score_panel::get_score()const {
 	return score;
 }

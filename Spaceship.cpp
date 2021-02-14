@@ -1,7 +1,7 @@
 #include"Spaceship.h"
 
 
-Spaceship::Spaceship(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {
+Spaceship::Spaceship(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a), sz(s) {
 
 }
 void Spaceship::draw() {
@@ -31,14 +31,18 @@ void Spaceship::draw() {
 	fl_line( x + sz, y + sz,x+sz/2,y+sz/16*12);
 	fl_line(x + sz / 2, y + sz / 16 * 12, x, y + sz);
 }
-void Spaceship::move(int a, int b){
+void Spaceship::move(int a){
 	x += a;
-	y += b;
 	this->hide();
 	this->show();
 }
 void Spaceship::set_color(Fl_Color c) { lc = c; }
 void Spaceship::set_fill_color(Fl_Color c) { fc = c; }
+void Spaceship::reset_pos() {
+	x = start_x;
+	this->hide();
+	this->show();
+}
 std::pair<int, int> Spaceship::get_pos()const {
 	std::pair<int, int>cannon{ x + sz / 2,y };
 	return cannon;
@@ -46,13 +50,14 @@ std::pair<int, int> Spaceship::get_pos()const {
 
 Laser_beam::Laser_beam(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {}
 void Laser_beam::draw() {	
+	this->hide();
 	fl_color(lc);
 	fl_line_style(0, 6,0);
 	fl_line(x, y, x, y - sz/3);
 }
-void Laser_beam::move(int a, int b) {
-	x += a;
-	y += b;
+void Laser_beam::move(int a) {
+	y += a;
+	draw();
 }
 void Laser_beam::set_color(Fl_Color c) { lc = c; }
 std::pair<int, int> Laser_beam::get_pos()const {

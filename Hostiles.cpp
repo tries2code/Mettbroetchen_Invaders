@@ -103,6 +103,7 @@ attack_surface.clear();
 std::vector<std::pair<int, int>> Hostile::get_a_s() {
 	return attack_surface;
 }
+int Hostile::get_y() { return y+25; }
 bool Hostile::active() {
 	if (b.active())return true;
 	return false;

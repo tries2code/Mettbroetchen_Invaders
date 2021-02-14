@@ -10,15 +10,17 @@
 class Spaceship :Fl_Widget {
 	int x;
 	int y;
+	int start_x;
 	int sz;
 	Fl_Color lc=FL_BLACK;
 	Fl_Color fc = FL_RED;
 public:
 	Spaceship(int, int,int);
 	void draw();
-	void move(int, int);
+	void move(int);
 	void set_color(Fl_Color);
 	void set_fill_color(Fl_Color);
+	void reset_pos();
 	std::pair<int, int> get_pos()const;
 };
 
@@ -30,7 +32,7 @@ class Laser_beam :Fl_Widget {
 public:
 	Laser_beam(int, int, int);
 	void draw();
-	void move(int,int);
+	void move(int);
 	void set_color(Fl_Color);
 	std::pair<int, int> get_pos()const;
 };

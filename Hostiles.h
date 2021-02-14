@@ -49,5 +49,6 @@ public:
 	void show();
 	void set_a_s();
 	std::vector<std::pair<int, int>> get_a_s();
+	int get_y();
 	bool active();
 };

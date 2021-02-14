@@ -11,6 +11,7 @@ public:
 	Score_panel(int, int);
 	void draw();
 	void add_score();
+	void reset_score();
 	int get_score()const;
 };
 
