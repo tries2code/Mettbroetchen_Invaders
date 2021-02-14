@@ -45,19 +45,18 @@ std::pair<int, int> Spaceship::get_pos()const {
 }
 
 Laser_beam::Laser_beam(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {}
-void Laser_beam::draw() {				
+void Laser_beam::draw() {	
 	fl_color(lc);
-	fl_line_style(1, 6,0);
-	fl_line(x, y, x, y - sz);
+	fl_line_style(0, 6,0);
+	fl_line(x, y, x, y - sz/3);
 }
 void Laser_beam::move(int a, int b) {
 	x += a;
 	y += b;
-	draw();
 }
 void Laser_beam::set_color(Fl_Color c) { lc = c; }
 std::pair<int, int> Laser_beam::get_pos()const {
-	std::pair<int, int>laser{ x ,y };
+	std::pair<int, int>laser{ x ,y-sz/3 };
 	return laser;
 }
 

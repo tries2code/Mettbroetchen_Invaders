@@ -1,5 +1,23 @@
 #include"Backrounds.h"
 
+Score_panel::Score_panel(int a, int b):Fl_Widget(a,b,a,b),x(a),y(b) {}
+void Score_panel::draw() {
+	char points[50];
+	sprintf_s(points, "%d", score);
+	const char* point = points;
+	fl_color(204, 0, 0);
+	fl_font(5, 19);
+	fl_draw("Score:", x, y);
+	fl_draw(points, x, y+20);
+}
+void Score_panel::add_score() {
+	++score;
+	draw();
+}
+int Score_panel::get_score()const {
+	return score;
+}
+
 
 Backround_lv1::Backround_lv1(int a, int b, int c, int d) :
 	Fl_Widget(a, b, c, d), x(a-50), y(b-50), w(c), h(d) {
@@ -11,21 +29,21 @@ void Backround_lv1::draw() {
 	fl_rectf(x, y, w, h);
 
 	fl_color(FL_DARK_RED);				//moon? mars? idk...
-	fl_arc(100, 200, 100, 100, 0,360);
+	fl_arc(100, 200, 100, 100, 0, 360);
 	fl_pie(100, 200, 100, 100, 0, 360);
 
-	fl_color(96,96,96);					//Skyline
-	fl_rectf(x+10, 660, 40, 160);
-	fl_rectf(x+60, 650, 60, 160);
-	fl_rectf(x+130, 640, 40, 160);
-	fl_rectf(x+190, 700, 80, 160);
-	fl_rectf(x+280, 620, 30, 190);
-	fl_rectf(x+330, 660, 50, 160);
-	fl_rectf(x+390, 690, 70, 160);
-	fl_rectf(x+480, 630, 30, 190);
-	fl_rectf(x+520, 660, 50, 160);
-	fl_rectf(x+590, 650, 50, 160);
-	fl_rectf(x+660, 640, 40, 160);
+	fl_color(96, 96, 96);					//Skyline
+	fl_rectf(x + 10, 660, 40, 160);
+	fl_rectf(x + 60, 650, 60, 160);
+	fl_rectf(x + 130, 640, 40, 160);
+	fl_rectf(x + 190, 700, 80, 160);
+	fl_rectf(x + 280, 620, 30, 190);
+	fl_rectf(x + 330, 660, 50, 160);
+	fl_rectf(x + 390, 690, 70, 160);
+	fl_rectf(x + 480, 630, 30, 190);
+	fl_rectf(x + 520, 660, 50, 160);
+	fl_rectf(x + 590, 650, 50, 160);
+	fl_rectf(x + 660, 640, 40, 160);
 	fl_rectf(x + 720, 670, 50, 160);
 	fl_rectf(x + 790, 690, 70, 160);
 	fl_rectf(x + 870, 660, 60, 160);
@@ -33,7 +51,7 @@ void Backround_lv1::draw() {
 	fl_rectf(x + 990, 640, 40, 160);
 	fl_rectf(x + 1040, 620, 50, 190);
 
-	fl_color(153,153,0);
+	fl_color(153, 153, 0);
 	fl_line_style(2, 6, 0);
 	//Windows of first building
 	fl_line(15, 670, 45, 670);
@@ -181,7 +199,7 @@ void Backround_lv1::draw() {
 	//Windows of twelveth building
 	fl_line(723, 680, 765, 680);
 	fl_line(723, 690, 755, 690);
-	fl_line(723, 700, 765, 700);	
+	fl_line(723, 700, 765, 700);
 	fl_line(723, 710, 765, 710);
 	fl_line(723, 720, 765, 720);
 	fl_line(723, 730, 745, 730);
@@ -257,11 +275,12 @@ void Backround_lv1::draw() {
 	fl_line(1044, 770, 1085, 770);		//maybe i should have made a building class instead....
 
 	//Hotel Signs
-	fl_color(204,0,0);
+	fl_color(204, 0, 0);
 	fl_font(5, 19);
 	fl_draw("HOTEL", 797, 692);
 	fl_font(1, 19);
 	fl_draw("HOTEL", 392, 692);
 	fl_font(7, 23);
 	fl_draw("HOTEL", 195, 705);
+
 }
