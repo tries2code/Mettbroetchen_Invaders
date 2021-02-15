@@ -1,9 +1,6 @@
 #include"Spaceship.h"
 
-
-Spaceship::Spaceship(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a), sz(s) {
-
-}
+Spaceship::Spaceship(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a), sz(s) {}
 void Spaceship::draw() {
 	double xx = x;
 	double yy = y;

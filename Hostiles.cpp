@@ -1,11 +1,8 @@
 #include"Hostiles.h"
 
-
-
 Hostile::Hostile(int a, int b) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a),start_y(b), b(x, y, 50, 50) {
 	
 	int kind = 1 + (rand() % 13);
-
 	switch (kind) {
 	case 1:
 		this->b.image(im1);		
@@ -65,9 +62,7 @@ Hostile::Hostile(int a, int b) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a),sta
 	re_end_w = end_w;
 	set_a_s();
 }
-void Hostile::draw() {
-	b.position(x, y);
-}
+void Hostile::draw() {b.position(x, y);}
 void Hostile::move(int a, int b) {
 	x += a;
 	y += b;
@@ -100,9 +95,7 @@ attack_surface.clear();
 		++temp;
 	}
 }
-std::vector<std::pair<int, int>> Hostile::get_a_s() {
-	return attack_surface;
-}
+std::vector<std::pair<int, int>> Hostile::get_a_s() {return attack_surface;}
 int Hostile::get_y() { return y+25; }
 bool Hostile::active() {
 	if (b.active())return true;

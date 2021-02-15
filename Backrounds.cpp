@@ -1,24 +1,16 @@
 #include"Backrounds.h"
 
-Score_panel::Score_panel(int a, int b):Fl_Widget(a,b,a,b),x(a),y(b) {}
+extern int g_score;
+
+Score_panel::Score_panel(int a, int b):Fl_Widget(a,b,a,b),x(a),y(b) {} //Shows score while playing
 void Score_panel::draw() {
 	char points[50];
-	sprintf_s(points, "%d", score);
-	const char* point = points;
+	sprintf_s(points, "%d", g_score);
 	fl_color(204, 0, 0);
 	fl_font(5, 19);
 	fl_draw("Score:", x, y);
 	fl_draw(points, x, y+20);
 }
-void Score_panel::add_score() {
-	++score;
-	draw();
-}
-void Score_panel::reset_score() { score = 0; }
-int Score_panel::get_score()const {
-	return score;
-}
-
 
 Backround_lv1::Backround_lv1(int a, int b, int c, int d) :
 	Fl_Widget(a, b, c, d), x(a-50), y(b-50), w(c), h(d) {
