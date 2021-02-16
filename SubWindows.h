@@ -4,6 +4,9 @@
 #include<FL/Fl_Input.H>
 #include<FL/Fl_Button.H>
 
+#include"Backrounds.h"
+
+
 #include<vector>
 #include<fstream>
 #include<string>
@@ -29,11 +32,14 @@ class Start_window :public Fl_Window {
 	int x;
 	int y;
 	int width;
+	Backround_Start_Screen backround;
 	Fl_Button start;
 	Record title{ x + width / 10,80,5,45,"Welcome to Mettbrötchen Invaders" };
 	Record instr1{ x + width / 10,200,5,30,"Press a/d or <-/-> to move." };
 	Record instr2{ x + width / 10,250,5,30,"Press space to shoot." };
-	Record instr3{ x + width / 10,450,5,30,"....and lower your expectations" };
+	Record instr3{ x + width / 10,380,5,30,"....and lower your expectations!" };
+
+	Fl_Color fc = FL_DARK_CYAN;
 
 public:
 	Start_window(int, int, int, int);
@@ -46,7 +52,7 @@ class Highscores :public Fl_Window {
 	int y;
 	int width;
 	Fl_Button cont;
-	Record title{ x + width / 3,40,5,45,"Highscores" };
+	Record title{ x + width / 5,100,5,65,"Highscores" };
 public:
 	Highscores(int, int, int, int, const char*);
 	static void cb_cont(Fl_Widget*, void* addr) { ((Highscores*)addr)->continue_game(); }

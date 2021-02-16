@@ -9,7 +9,7 @@
 //make things less ugly
 
 int g_score = 0;
-bool g_game_active = true;			//turns false when a hostile reaches a position where it cant be killed anymore. stops the game.
+bool g_game_active = false;			//turns false when a hostile reaches a position where it cant be killed anymore. stops the game.
 bool g_game_restart = false;
 std::string g_name = "unknown";
 Highscores* g_hs = nullptr;
@@ -189,7 +189,7 @@ void MB_Invaders::speed_up(void* addr) {					//increases speed of hostiles depen
 	}
 }
 int MB_Invaders::handle(int event) {							//fltk handle for keyboard input
-	int ret = Fl_Window::handle(event);			//used as return value
+	int ret = Fl_Window::handle(event);			//Needed for Mouse-Klick Events. Can be used as return value
 
 	if (g_game_active) {
 
@@ -217,7 +217,8 @@ int MB_Invaders::handle(int event) {							//fltk handle for keyboard input
 			}
 		}
 	}
-	return (ret);
+	//return (ret);
+	return 42;						//Does the value matter? idk...
 }
 void MB_Invaders::view_hs() {
 	g_game_active = false;
@@ -249,7 +250,7 @@ void MB_Invaders::reset() {
 int main() {
 	srand((unsigned int)time(0));
 	MB_Invaders win(50, 50, 1200, 800, 50,"Mettbrötchen Invaders");
-	Start_window sw{ 50, 50, 1200, 800 };
+	Start_window sw{ 50, 50, 1200, 830 };
 
 	return Fl::run();
 }

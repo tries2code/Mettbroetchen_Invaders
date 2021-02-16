@@ -277,3 +277,66 @@ void Backround_lv1::draw() {
 	fl_draw("HOTEL", 195, 705);
 
 }
+
+Backround_Start_Screen::Backround_Start_Screen(int a, int b, int c, int d) :
+	Fl_Widget(a, b, c, d), x(a - 50), y(b - 50), w(c), h(d) {
+	position(x, y);
+}
+void Backround_Start_Screen::draw() {
+	fl_color(FL_DARK_BLUE);					//backround color
+	fl_rectf(x, y, w, h);
+
+	fl_color(96, 96, 96);					//Buildings
+
+	fl_rectf(x - 10, 550, 300, 300);
+	fl_rectf(x + 350, 700, 550, 300);
+	fl_rectf(x + 950, 600, 400, 300);
+
+	fl_color(153, 153, 0);					//Windows of Buildings
+
+	fl_rectf(x - 10, 575, 50, 50);
+	fl_rectf(x + 65, 575, 50, 50);
+	fl_rectf(x + 140, 575, 50, 50);
+	fl_rectf(x + 215, 575, 50, 50);
+	fl_rectf(x - 10, 650, 50, 50);
+	fl_rectf(x + 65, 650, 50, 50);
+	fl_rectf(x + 140, 650, 50, 50);
+	fl_rectf(x + 215, 650, 50, 50);
+	fl_rectf(x - 10, 725, 50, 50);
+	fl_rectf(x + 65, 725, 50, 50);
+	fl_rectf(x + 140, 725, 50, 50);
+	fl_rectf(x + 215, 725, 50, 50);
+	fl_rectf(x - 10, 800, 50, 50);
+	fl_rectf(x + 65, 800, 50, 50);
+	fl_rectf(x + 140, 800, 50, 50);
+	fl_rectf(x + 215, 800, 50, 50);
+
+	fl_rectf(x + 375, 725, 50, 50);
+	fl_rectf(x + 450, 725, 50, 50);
+	fl_rectf(x + 525, 725, 50, 50);
+	fl_rectf(x + 600, 725, 50, 50);
+	fl_rectf(x + 675, 725, 50, 50);
+	fl_rectf(x + 750, 725, 50, 50);
+	fl_rectf(x + 825, 725, 50, 50);
+	fl_rectf(x + 375, 800, 50, 50);
+	fl_rectf(x + 450, 800, 50, 50);
+	fl_rectf(x + 525, 800, 50, 50);
+	fl_rectf(x + 600, 800, 50, 50);
+	fl_rectf(x + 675, 800, 50, 50);
+	fl_rectf(x + 750, 800, 50, 50);
+	fl_rectf(x + 825, 800, 50, 50);
+
+	fl_rectf(x + 975, 655, 50, 50);
+	fl_rectf(x + 1050, 655, 50, 50);
+	fl_rectf(x + 1125, 655, 50, 50);
+	fl_rectf(x + 975, 730, 50, 50);
+	fl_rectf(x + 1050, 730, 50, 50);
+	fl_rectf(x + 1125, 730, 50, 50);
+	fl_rectf(x + 975, 805, 50, 50);
+	fl_rectf(x + 1050, 805, 50, 50);
+	fl_rectf(x + 1125, 805, 50, 50);
+
+	fl_color(204, 0, 0);
+	fl_font(7, 210);
+	fl_draw("HO", 1000, 630);
+}

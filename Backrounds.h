@@ -23,3 +23,13 @@ public:
 	Backround_lv1(int,int,int,int);
 	void draw();
 };
+
+class Backround_Start_Screen :Fl_Widget {
+	int x;
+	int y;
+	int w;
+	int h;
+public:
+	Backround_Start_Screen(int, int, int, int);
+	void draw();
+};

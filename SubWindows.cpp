@@ -19,18 +19,23 @@ void Record::set_color(Fl_Color c) {
 
 Start_window::Start_window(int a, int b, int w, int h) :Fl_Window(a, b-30, w, h),
 x(a), y(b), width(w),
-start(500, 600, 120, 30, "Start Game")
+start(470, 500, 280, 60, "Start Game"),
+backround(a, b, w, h)
 {					
-	g_game_active = false;
-	
 	clear_border();										//Prevents closing the window by control bar which wont make the game start
-	
+
 	start.callback(cb_start, this);
-	
-	title.set_color(FL_DARK_CYAN);
-	instr1.set_color(FL_DARK_CYAN); 
-	instr2.set_color(FL_DARK_CYAN);
-	instr3.set_color(FL_DARK_CYAN);
+	start.labelsize(40);
+	start.labelfont(5);
+	start.labelcolor(fc);
+	start.box(FL_PLASTIC_UP_FRAME);
+
+	start.color(FL_DARK_BLUE);
+
+	title.set_color(fc);
+	instr1.set_color(fc);
+	instr2.set_color(fc);
+	instr3.set_color(fc);
 
 	show();
 }
@@ -42,7 +47,7 @@ void Start_window::start_game() {
 
 Highscores::Highscores(int a, int b, int w, int h, const char* title) :Fl_Window(a, b, w, h, title), 
 x(a), y(b), width(w), 
-cont( 500,700,120,30,"Continue" )			
+cont( 450,700,120,30,"Continue" )			
 {														//the constructor loads data from the textfile and draws it on the screen
 	clear_border();										//Prevents closing the window by control bar which wont make the game continue
 	cont.callback(cb_cont, this);
@@ -61,7 +66,7 @@ cont( 500,700,120,30,"Continue" )
 	}
 	for (unsigned int i = 0; i < 10; ++i) {
 		std::string table = data[i];
-		Record* r = new Record{ x + 200,y + 100 + (50 * (int)i),5,19,table.c_str() };
+		Record* r = new Record{ x + 150,y + 100 + (50 * (int)i),5,19,table.c_str() };
 	}
 	show();
 }
