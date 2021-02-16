@@ -248,9 +248,8 @@ void MB_Invaders::reset() {
 
 int main() {
 	srand((unsigned int)time(0));
-
 	MB_Invaders win(50, 50, 1200, 800, 50,"Mettbrötchen Invaders");
+	Start_window sw{ 50, 50, 1200, 800 };
 
 	return Fl::run();
-
 }

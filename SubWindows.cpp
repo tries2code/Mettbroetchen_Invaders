@@ -5,12 +5,40 @@ extern bool g_game_active;
 extern bool g_game_restart;
 extern std::string g_name;
 
-Record::Record(int a, int b,int ff,int fs, std::string n) :Fl_Widget(a, b, a, b), x(a), y(b),font_face(ff),font_size(fs), name(n){}
+Record::Record(int a, int b,int ff,int fs, std::string n) :Fl_Widget(a, b, a, b), 
+x(a), y(b),font_face(ff),font_size(fs), name(n){}
 void Record::draw() {
-	fl_color(204, 0, 0);
+	fl_color(fc);
 	fl_font(font_face, font_size);
 	fl_draw(name.c_str(), x, y);
 }
+void Record::set_color(Fl_Color c) {
+	fc = c;
+}
+
+
+Start_window::Start_window(int a, int b, int w, int h) :Fl_Window(a, b-30, w, h),
+x(a), y(b), width(w),
+start(500, 600, 120, 30, "Start Game")
+{					
+	g_game_active = false;
+	
+	clear_border();										//Prevents closing the window by control bar which wont make the game start
+	
+	start.callback(cb_start, this);
+	
+	title.set_color(FL_DARK_CYAN);
+	instr1.set_color(FL_DARK_CYAN); 
+	instr2.set_color(FL_DARK_CYAN);
+	instr3.set_color(FL_DARK_CYAN);
+
+	show();
+}
+void Start_window::start_game() {
+	g_game_active = true;
+	this->hide();
+}
+
 
 Highscores::Highscores(int a, int b, int w, int h, const char* title) :Fl_Window(a, b, w, h, title), 
 x(a), y(b), width(w), 
@@ -41,6 +69,7 @@ void Highscores::continue_game() {
 	g_game_active = true; 
 	this->hide();
 }
+
 
 Game_Over::Game_Over(int a, int b, int w, int h, const char* title) :Fl_Window(a, b, w, h),
 x(a), y(b), width(w),
