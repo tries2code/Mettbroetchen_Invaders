@@ -69,8 +69,8 @@ void Hostile::move(int a, int b) {
 	start_w += a;
 	end_w += a;
 	set_a_s();
-	this->b.hide();
-	this->b.show();
+	hide();
+	show();
 }
 void Hostile::reset_pos() {
 	x = start_x;

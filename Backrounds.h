@@ -3,6 +3,7 @@
 #include<FL/Fl_Widget.h>
 #include<FL/fl_draw.H>
 
+#include"Spaceship.h"
 
 class Score_panel :Fl_Widget {  //Shows score while playing
 	int x;

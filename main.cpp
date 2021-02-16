@@ -2,9 +2,9 @@
 #include"Spaceship.h"
 #include"Backrounds.h"
 #include"Hostiles.h"
+#include<thread>
 
 //to do:
-//add barriers
 //tidy up
 //make things less ugly
 
@@ -14,6 +14,7 @@ bool g_game_restart = false;
 std::string g_name = "unknown";
 Highscores* g_hs = nullptr;
 Game_Over* g_go = nullptr;
+
 
 class MB_Invaders :public Fl_Window {
 							
@@ -33,7 +34,9 @@ class MB_Invaders :public Fl_Window {
 	Spaceship ship;
 	Score_panel score;
 	std::vector<Laser_beam*>lasers;		//contains shots
-	std::vector<Hostile*>hostiles;
+	std::vector<Hostile*>hostiles;	
+	std::vector<Barrier*>barriers;
+
 public:
 	MB_Invaders(int, int, int, int, int, const char*);
 	~MB_Invaders() {}
@@ -66,6 +69,11 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 		if (hostile_space == 1020) hostile_space = 120;
 	}
 
+	//for (unsigned int i= 0; i < 10; ++i) {
+	//	Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
+	//	barriers.push_back(x);
+	//}
+
 	Fl::add_timeout(time, move_lasers, (void*)this);
 	Fl::add_timeout(hostile_time, add_hostiles, (void*)this);					//actually just makes hostiles visible and active
 	Fl::add_timeout(hostile_moving_speed, move_hostiles, (void*)this);			//moves only active hostiles
@@ -77,6 +85,7 @@ void MB_Invaders::move_lasers(void* addr) {
 
 	MB_Invaders* mbiw = (MB_Invaders*)addr;
 	Fl::add_timeout(mbiw->time, move_lasers, addr);
+	
 	if (g_game_active) {
 		for (unsigned int i = 0; i < mbiw->lasers.size(); ++i) {
 			mbiw->lasers[i]->move(-10);							//projectile moves
@@ -88,6 +97,7 @@ void MB_Invaders::move_lasers(void* addr) {
 			}
 		}
 	}
+	
 }
 void MB_Invaders::add_hostiles(void* addr) {						//actually just makes hostiles visible and active
 

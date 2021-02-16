@@ -47,7 +47,6 @@ std::pair<int, int> Spaceship::get_pos()const {
 
 Laser_beam::Laser_beam(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {}
 void Laser_beam::draw() {	
-	this->hide();
 	fl_color(lc);
 	fl_line_style(0, 6,0);
 	fl_line(x, y, x, y - sz/3);
@@ -61,6 +60,174 @@ std::pair<int, int> Laser_beam::get_pos()const {
 	std::pair<int, int>laser{ x ,y-sz/3 };
 	return laser;
 }
+
+
+Barrier::Barrier(int a, int b, int s) :Fl_Widget(a, b, a, b), x(a), y(b), sz(s) { //constructor calculates pixels for a barrier
+	int part =sz / 50;
+
+	int start_x = x+part * 15;
+	int start_y = y+part*10;
+	int end_x =x+ part * 35;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 14;
+	start_y = y+part * 11;
+	end_x = x+part * 36;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 12;
+	start_y = y+part * 12;
+	end_x = x+part * 38;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 11;
+	start_y = y+part * 13;
+	end_x = x+part * 39;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 9;
+	start_y = y+part * 14;
+	end_x = x+part * 41;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 8;
+	start_y = y+part * 15;
+	end_x = x+part * 42;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 6;
+	start_y = y+part * 16;
+	end_x = x+part * 44;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 5;
+	start_y = y+part * 17;
+	end_x = x+part * 45;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 3;
+	start_y = y+part * 18;
+	end_x = x+part * 47;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part * 2;
+	start_y = y+part * 19;
+	end_x = x+part * 48;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}
+	start_x = x+part ;
+	start_y = y+part * 20;
+	end_x = x+part * 50;
+	while (start_x != end_x) {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+	}												//i should do this a bit smarter next time...
+
+	start_x = x+part;
+	start_y = y+part*20;
+	end_x = x+part*50;
+	do {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+		if (start_x == end_x && start_y <= (y+part*30)) {
+			start_x = x + part;
+			++start_y;
+		}
+	} while (start_x != end_x);
+
+	start_x = x + part;
+	start_y = y + part * 30;
+	end_x = x + part * 10;
+	do {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+		if (start_x == end_x && start_y <= (y + part * 40)) {
+			start_x = x + part;
+			++start_y;
+		}
+	} while (start_x != end_x);
+
+	start_x = x + part*10;
+	start_y = y + part * 40;
+	end_x = x + part * 10;
+	do {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+		if (start_x > end_x) {
+			start_x = x + part * 10;
+			++end_x;
+			--start_y;
+		}
+		
+	} while (start_x<=end_x&&start_y>=(y + part * 30));
+
+
+	start_x = x + part * 30;
+	start_y = y + part * 30;
+	end_x = x + part * 40;
+	int count = 1;
+	do {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+		if (start_x >= end_x) {
+			start_x = x + part * 30+count;
+			++start_y;
+			++count;
+		}
+
+	} while (start_x != end_x && start_y != (y + part * 40));
+
+
+	start_x = x + part * 40;
+	start_y = y + part * 30;
+	end_x = x + part * 50;
+	do {
+		pixels.emplace_back(start_x, start_y);
+		++start_x;
+		if (start_x == end_x) {
+			start_x = x + part * 40;
+			++start_y;
+		}
+
+	} while (start_x != end_x && start_y <= (y + part * 40));
+	back_up_pixels = pixels;
+}
+void Barrier::draw() {
+	fl_color(lc);
+	for (unsigned int i = 0; i < pixels.size(); i++) fl_point(pixels[i].first, pixels[i].second);
+}
+void Barrier::damage(int a, int b) {
+		for (unsigned int i = 0; i < pixels.size(); i++) {
+			if ((pixels[i].first == a && pixels[i].second == b) || (pixels[i].first == b && pixels[i].second == a))
+				pixels.erase(pixels.begin() + i);
+		}
+		pixels.shrink_to_fit();
+}
+void Barrier::restore() {
+	pixels = back_up_pixels;
+}
+std::vector<std::pair<int, int>>Barrier::get_pixels()const {return pixels;}
+
 
 
 

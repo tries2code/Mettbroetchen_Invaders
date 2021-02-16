@@ -35,7 +35,21 @@ public:
 	std::pair<int, int> get_pos()const;
 };
 
+class Barrier :Fl_Widget {
+	int x;
+	int y;
+	int sz;
+	Fl_Color lc = FL_BLACK;
+	std::vector<std::pair<int, int>>pixels;
+	std::vector<std::pair<int, int>>back_up_pixels;
 
+public:
+	Barrier(int, int, int);
+	void draw();
+	void damage(int,int);
+	void restore();
+	std::vector<std::pair<int, int>>get_pixels()const;
+};
 
 
 
