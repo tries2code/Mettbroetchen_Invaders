@@ -6,7 +6,7 @@ Score_panel::Score_panel(int a, int b):Fl_Widget(a,b,a,b),x(a),y(b) {} //Shows s
 void Score_panel::draw() {
 	char points[50];
 	sprintf_s(points, "%d", g_score);
-	fl_color(204, 0, 0);
+	fl_color(FL_DARK_CYAN);
 	fl_font(5, 19);
 	fl_draw("Score:", x, y);
 	fl_draw(points, x, y+20);
@@ -275,7 +275,6 @@ void Backround_lv1::draw() {
 	fl_draw("HOTEL", 392, 692);
 	fl_font(7, 23);
 	fl_draw("HOTEL", 195, 705);
-
 }
 
 Backround_Start_Screen::Backround_Start_Screen(int a, int b, int c, int d) :
@@ -287,15 +286,15 @@ void Backround_Start_Screen::draw() {
 	fl_rectf(x, y, w, h);
 
 	fl_color(96, 96, 96);					//Buildings
-
-	fl_rectf(x - 10, 550, 300, 300);
-	fl_rectf(x + 350, 700, 550, 300);
+	
+	fl_rectf(x -10, 550, 300, 300);
+	fl_rectf(x +350, 700, 550, 300);
 	fl_rectf(x + 950, 600, 400, 300);
 
 	fl_color(153, 153, 0);					//Windows of Buildings
 
 	fl_rectf(x - 10, 575, 50, 50);
-	fl_rectf(x + 65, 575, 50, 50);
+	fl_rectf(x +65, 575, 50, 50);
 	fl_rectf(x + 140, 575, 50, 50);
 	fl_rectf(x + 215, 575, 50, 50);
 	fl_rectf(x - 10, 650, 50, 50);
@@ -339,4 +338,70 @@ void Backround_Start_Screen::draw() {
 	fl_color(204, 0, 0);
 	fl_font(7, 210);
 	fl_draw("HO", 1000, 630);
+}
+
+
+Backround_HS_Screen::Backround_HS_Screen(int a, int b, int c, int d) :
+	Fl_Widget(a, b, c, d), x(a - 50), y(b - 50), w(c), h(d) {
+	position(x, y);
+}
+void Backround_HS_Screen::draw() {
+	fl_color(FL_DARK_BLUE);					//backround color
+	fl_rectf(x, y, w, h);
+
+	fl_color(FL_DARK_RED);
+	fl_pie(600, -150, 500, 500, 0, 360);
+
+	fl_color(96, 96, 96);					//Buildings
+	fl_rectf(x - 10, 50, 300, 800);
+	fl_rectf(x + 850, 250, 550, 800);
+
+	fl_color(153, 153, 0);					//Windows of Buildings
+	for (int i = 75; i < 800; i += 75) {
+		fl_rectf(x - 10, i, 50, 50);
+		fl_rectf(x + 65, i, 50, 50);
+		fl_rectf(x + 140, i, 50, 50);
+		fl_rectf(x + 215, i, 50, 50);
+	}
+	for (int i = 275; i < 875; i += 75) {
+		fl_rectf(x + 875, i, 50, 50);
+		fl_rectf(x + 950, i, 50, 50);
+		fl_rectf(x + 1025, i, 50, 50);
+		fl_rectf(x + 1100, i, 50, 50);
+		fl_rectf(x + 1175, i, 50, 50);
+	}
+
+	
+}
+
+
+Backround_GO_Screen::Backround_GO_Screen(int a, int b, int c, int d) :
+	Fl_Widget(a, b, c, d), x(a - 50), y(b - 50), w(c), h(d) {
+	position(x, y);
+}
+void Backround_GO_Screen::draw() {
+	fl_color(FL_DARK_BLUE);					//backround color
+	fl_rectf(x, y, w, h);
+
+	
+
+	fl_color(96, 96, 96);					//Buildings
+	fl_rectf(x - 10, 600, 300, 800);
+	fl_rectf(x +1050, 400, 350, 800);
+
+	fl_color(153, 153, 0);					//Windows of Buildings
+	for (int i = 625; i < 875; i += 75) {
+		fl_rectf(x - 10, i, 50, 50);
+		fl_rectf(x + 65, i, 50, 50);
+		fl_rectf(x + 140, i, 50, 50);
+		fl_rectf(x + 215, i, 50, 50);
+	}
+	for (int i = 425; i < 875; i += 75) {
+		fl_rectf(x + 1075, i, 50, 50);
+		fl_rectf(x + 1150, i, 50, 50);
+	}
+	
+	fl_color(204, 0, 0);
+	fl_font(3, 160);
+	fl_draw("HOTEL", 400, 870);
 }

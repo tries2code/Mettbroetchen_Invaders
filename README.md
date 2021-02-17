@@ -19,3 +19,11 @@ fltk.lib
 wsock32.lib
 comctl32.lib
 fltkimages.lib
+
+To Do:
+-Increase frame-rate somehow so barriers can be added. They are commented out atm(see MB_Invaders Constructor).
+Once done, the code for damaging barriers by lasers and hostiles will be added.
+
+-Fix Lasers so they dont look like moving caterpillars 
+
+-Fine tuning on ship movement and shooting

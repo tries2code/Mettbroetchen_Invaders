@@ -6,7 +6,6 @@
 
 #include"Backrounds.h"
 
-
 #include<vector>
 #include<fstream>
 #include<string>
@@ -38,7 +37,7 @@ class Start_window :public Fl_Window {
 	Record instr1{ x + width / 10,200,5,30,"Press a/d or <-/-> to move." };
 	Record instr2{ x + width / 10,250,5,30,"Press space to shoot." };
 	Record instr3{ x + width / 10,380,5,30,"....and lower your expectations!" };
-
+	
 	Fl_Color fc = FL_DARK_CYAN;
 
 public:
@@ -51,8 +50,10 @@ class Highscores :public Fl_Window {
 	int x;
 	int y;
 	int width;
+	Backround_HS_Screen backround;
 	Fl_Button cont;
-	Record title{ x + width / 5,100,5,65,"Highscores" };
+	Record hs_title{ x + width / 4,100,5,75,"Highscores" };
+	Fl_Color fc = FL_DARK_CYAN;
 public:
 	Highscores(int, int, int, int, const char*);
 	static void cb_cont(Fl_Widget*, void* addr) { ((Highscores*)addr)->continue_game(); }
@@ -63,10 +64,12 @@ class Game_Over : Fl_Window {
 	int x;
 	int y;
 	int width;
+	Backround_GO_Screen backround;
 	Fl_Button cont;
 	Fl_Button quit;
 	Fl_Input enter_name;
-	Record title{ x + width / 3,40,5,45,"Game Over" };
+	Record go_title{ x + 165,150,5,145,"Game Over" };
+	Fl_Color fc = FL_DARK_CYAN;
 public:
 	Game_Over(int, int, int, int, const char*);
 	static void cb_cont(Fl_Widget*, void* addr) { ((Game_Over*)addr)->continue_game(); }

@@ -33,3 +33,23 @@ public:
 	Backround_Start_Screen(int, int, int, int);
 	void draw();
 };
+
+class Backround_HS_Screen :Fl_Widget {
+	int x;
+	int y;
+	int w;
+	int h;
+public:
+	Backround_HS_Screen(int, int, int, int);
+	void draw();
+};
+
+class Backround_GO_Screen :Fl_Widget {
+	int x;
+	int y;
+	int w;
+	int h;
+public:
+	Backround_GO_Screen(int, int, int, int);
+	void draw();
+};

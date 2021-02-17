@@ -9,7 +9,7 @@
 //make things less ugly
 
 int g_score = 0;
-bool g_game_active = false;			//turns false when a hostile reaches a position where it cant be killed anymore. stops the game.
+bool g_game_active = true;			//turns false when a hostile reaches a position where it cant be killed anymore. stops the game.
 bool g_game_restart = false;
 std::string g_name = "unknown";
 Highscores* g_hs = nullptr;
@@ -39,7 +39,6 @@ class MB_Invaders :public Fl_Window {
 
 public:
 	MB_Invaders(int, int, int, int, int, const char*);
-	~MB_Invaders() {}
 	static void move_lasers(void*);
 	static void add_hostiles(void*);
 	static void move_hostiles(void*);
@@ -51,13 +50,14 @@ public:
 	void reset();
 };
 MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) : Fl_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
-ship(525, 650, sz), check_hs(length - 95, y + 50, 80, 30, "Highscores"),
+ship(525, 650, sz), check_hs(length - 95, y + 50, 90, 30, "Highscores"),
 backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 {
 	check_hs.clear_visible_focus();		//prevents the button from being pushed by space- or enter key
 	check_hs.callback(cb_hs, this);
-	position(x, y);						//Window-Position
-	size_range(w, h, w, h);				//locks Window-Size
+	check_hs.labelfont(5);
+	check_hs.labelcolor(FL_DARK_CYAN);
+	check_hs.box(FL_PLASTIC_UP_FRAME);
 
 	hostiles.reserve(150);
 	for (unsigned int i = 0; i < 150; ++i) {		//for some reason, Hostiles have to be created inside the constructor
@@ -79,6 +79,9 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 	Fl::add_timeout(hostile_moving_speed, move_hostiles, (void*)this);			//moves only active hostiles
 	Fl::add_timeout(time, kill_hostiles, (void*)this);
 	Fl::add_timeout(time, speed_up, (void*)this);
+
+	position(x, y);						//Window-Position
+	size_range(w, h, w, h);				//locks Window-Size
 	show();
 }
 void MB_Invaders::move_lasers(void* addr) {
@@ -139,7 +142,7 @@ void MB_Invaders::move_hostiles(void* addr) {
 
 		if (!g_game_active) {
 			if (g_go)delete g_go;
-			g_go = new Game_Over{ 100,100,1000,800,"Game Over" };
+			g_go = new Game_Over{ 50, 50, 1200, 850,"Game Over" };
 		}
 	}
 	if (g_game_restart)mbiw->reset();
@@ -223,7 +226,7 @@ int MB_Invaders::handle(int event) {							//fltk handle for keyboard input
 void MB_Invaders::view_hs() {
 	g_game_active = false;
 	if (g_hs) delete g_hs;
-	g_hs = new Highscores{ 100,100,1000,800,"Highscores" };
+	g_hs = new Highscores{ 50, 50, 1200, 850,"Highscores" };
 }
 void MB_Invaders::reset() {
 	g_score = 0;
