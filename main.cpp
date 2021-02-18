@@ -49,7 +49,8 @@ public:
 	void view_hs();
 	void reset();
 };
-MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) : Fl_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
+MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) : 
+	Fl_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
 ship(525, 650, sz), check_hs(length - 95, y + 50, 90, 30, "Highscores"),
 backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 {
@@ -69,10 +70,10 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 		if (hostile_space == 1020) hostile_space = 120;
 	}
 
-	//for (unsigned int i= 0; i < 10; ++i) {
-	//	Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
-	//	barriers.push_back(x);
-	//}
+	for (unsigned int i= 0; i < 10; ++i) {
+		Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
+		barriers.push_back(x);
+	}
 
 	Fl::add_timeout(time, move_lasers, (void*)this);
 	Fl::add_timeout(hostile_time, add_hostiles, (void*)this);					//actually just makes hostiles visible and active
@@ -83,6 +84,7 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 	position(x, y);						//Window-Position
 	size_range(w, h, w, h);				//locks Window-Size
 	show();
+	Fl::run();
 }
 void MB_Invaders::move_lasers(void* addr) {
 
@@ -99,7 +101,7 @@ void MB_Invaders::move_lasers(void* addr) {
 				mbiw->lasers.shrink_to_fit();
 			}
 		}
-	}
+	}	
 }
 void MB_Invaders::add_hostiles(void* addr) {						//actually just makes hostiles visible and active
 
@@ -190,40 +192,29 @@ void MB_Invaders::speed_up(void* addr) {					//increases speed of hostiles depen
 		mbiw->hostile_time = 2.1;
 	}
 }
-int MB_Invaders::handle(int event) {							//fltk handle for keyboard input
-	int ret = Fl_Window::handle(event);			//Needed for Mouse-Klick Events. Can be used as return value
+int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
+	int ret = Fl_Window::handle(event);										//Needed for Mouse-Klick Events. Can be used as return value
 
-	if (g_game_active) {
+	if (g_game_active && event == FL_KEYDOWN) {
 
-		switch (event) {
-		case FL_FOCUS:
-			return 1;
-			break;									//redundant?
-		case FL_UNFOCUS:
-			//break;	
-			return 1;
-			//apparently this break is important, else the spaceship would either go to the max right or max left position
-		case FL_SHORTCUT:
-			break;									//aside from having two events isntead of three, idk what this does
-		case FL_KEYDOWN:							//this case yields events while a key keeps being pressed
-			if (Fl::event_key() == 97 || Fl::event_key() == 65361)if (ship.get_pos().first > x - 25)ship.move(-15);				//move to the left
-			if (Fl::event_key() == 100 || Fl::event_key() == 65363)if (ship.get_pos().first < length / 12 * 11 - 25)ship.move(15);	//move to the right
+		switch (Fl::event_key()) {
+		case FL_Escape:
+			exit(1);							
+		case FL_Left:case 97:
+			if (ship.get_pos().first > x - 25)ship.move(-15);				//move to the left
 			break;
-		case FL_KEYUP:								//since FL_KEYDOWN has a break, this case yields only one event, therefore only one laser will be shot instead of three
-
-			//printf("%d%c",Fl::event_key(),'\n');	//for debug-purpose, gets key-value
-
-			if (Fl::event_key() == 32) {			//shots been fired
-
-				std::pair<int, int>shot{ ship.get_pos() };
-				Laser_beam* x = new Laser_beam{ shot.first,shot.second,sz };
-				lasers.emplace_back(x);
-				lasers[lasers.size() - 1]->draw();
-			}
+		case FL_Right:case 100:
+			if (ship.get_pos().first < length / 12 * 11 - 25)ship.move(15);	//move to the right
+			break;
+		case 32:															//shots been fired
+			std::pair<int, int>shot{ ship.get_pos() };
+			Laser_beam* x = new Laser_beam{ shot.first,shot.second,sz };
+			lasers.push_back(x);
+			lasers[lasers.size() - 1]->draw();
+			break;
 		}
 	}
-	//return (ret);
-	return 42;						//Does the value matter? idk...
+	return ret;
 }
 void MB_Invaders::view_hs() {
 	g_game_active = false;
@@ -257,5 +248,4 @@ int main() {
 	MB_Invaders win(50, 50, 1200, 800, 50,"Mettbrötchen Invaders");
 	Start_window sw{ 50, 50, 1200, 830 };
 
-	return Fl::run();
 }

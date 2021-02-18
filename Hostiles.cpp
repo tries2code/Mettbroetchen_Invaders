@@ -1,6 +1,20 @@
 #include"Hostiles.h"
 
-Hostile::Hostile(int a, int b) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a),start_y(b), b(x, y, 50, 50) {
+Fl_PNG_Image im1{ "MBs/MB1.png" };
+Fl_PNG_Image im2{ "MBs/MB2.png" };
+Fl_PNG_Image im3{ "MBs/MB3.png" };
+Fl_PNG_Image im4{ "MBs/MB4.png" };
+Fl_PNG_Image im5{ "MBs/MB5.png" };
+Fl_PNG_Image im6{ "MBs/MB6.png" };
+Fl_PNG_Image im7{ "MBs/MB7.png" };
+Fl_PNG_Image im8{ "MBs/MB8.png" };
+Fl_PNG_Image im9{ "MBs/MB9.png" };
+Fl_PNG_Image im10{ "MBs/M10.png" };
+Fl_PNG_Image im11{ "MBs/MB11.png" };
+Fl_PNG_Image im12{ "MBs/MB12.png" };
+Fl_PNG_Image im13{ "MBs/MB13.png" };
+
+Hostile::Hostile(int a, int b) :Fl_Widget(a, b, a, b), x(a), y(b),start_x(a),start_y(b), b(x, y, 100, 100) { //b(x, y, 50, 50) changed to b(x, y, 100, 100) due to new moving approach, lets hope it wont have any effect on killing hostiles
 	
 	int kind = 1 + (rand() % 13);
 	switch (kind) {
@@ -69,8 +83,7 @@ void Hostile::move(int a, int b) {
 	start_w += a;
 	end_w += a;
 	set_a_s();
-	hide();
-	show();
+	redraw();
 }
 void Hostile::reset_pos() {
 	x = start_x;
@@ -86,6 +99,12 @@ void Hostile::hide() {
 void Hostile::show() {
 	b.set_active();
 	b.show();
+}
+void Hostile::redraw() {
+	b.deactivate();
+	b.position(x, y);
+	b.activate();
+	b.redraw();
 }
 void Hostile::set_a_s() {
 attack_surface.clear();

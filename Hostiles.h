@@ -24,21 +24,6 @@ class Hostile :Fl_Widget {
 	std::vector<std::pair<int, int>>attack_surface;
 
 	Fl_Box b;
-
-	Fl_PNG_Image im1{ "MBs/MB1.png" };
-	Fl_PNG_Image im2{ "MBs/MB2.png" };
-	Fl_PNG_Image im3{ "MBs/MB3.png" };
-	Fl_PNG_Image im4{ "MBs/MB4.png" };
-	Fl_PNG_Image im5{ "MBs/MB5.png" };
-	Fl_PNG_Image im6{ "MBs/MB6.png" };
-	Fl_PNG_Image im7{ "MBs/MB7.png" };
-	Fl_PNG_Image im8{ "MBs/MB8.png" };
-	Fl_PNG_Image im9{ "MBs/MB9.png" };
-	Fl_PNG_Image im10{ "MBs/M10.png" };
-	Fl_PNG_Image im11{ "MBs/MB11.png" };
-	Fl_PNG_Image im12{ "MBs/MB12.png" };
-	Fl_PNG_Image im13{ "MBs/MB13.png" };
-	
 public:
 	Hostile(int, int);
 	void draw();
@@ -46,6 +31,7 @@ public:
 	void reset_pos();
 	void hide();
 	void show();
+	void redraw();
 	void set_a_s();
 	std::vector<std::pair<int, int>> get_a_s();
 	int get_y();
