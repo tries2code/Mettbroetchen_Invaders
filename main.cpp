@@ -100,7 +100,6 @@ void MB_Invaders::move_lasers(void* addr) {
 			}
 		}
 	}
-	
 }
 void MB_Invaders::add_hostiles(void* addr) {						//actually just makes hostiles visible and active
 
@@ -198,9 +197,12 @@ int MB_Invaders::handle(int event) {							//fltk handle for keyboard input
 
 		switch (event) {
 		case FL_FOCUS:
+			return 1;
 			break;									//redundant?
 		case FL_UNFOCUS:
-			//break;								//apparently this break is important, else the spaceship would either go to the max right or max left position
+			//break;	
+			return 1;
+			//apparently this break is important, else the spaceship would either go to the max right or max left position
 		case FL_SHORTCUT:
 			break;									//aside from having two events isntead of three, idk what this does
 		case FL_KEYDOWN:							//this case yields events while a key keeps being pressed
