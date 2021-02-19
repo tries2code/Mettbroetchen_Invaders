@@ -18,7 +18,7 @@ Game_Over* g_go = nullptr;
 
 class MB_Invaders :public Fl_Window {
 							
-	double time = 0.25;					//timespan for reoccuring events
+	double time = 0.025;				//timespan for reoccuring events
 	double hostile_time = 2;			//timespan for adding new rows of hostiles(will be increased to 8 after first run)
 	double hostile_moving_speed = 1;
 	int hostile_space = 120;			//distance between hostiles( gets incresed and reseted)
@@ -35,7 +35,7 @@ class MB_Invaders :public Fl_Window {
 	Score_panel score;
 	std::vector<Laser_beam*>lasers;		//contains shots
 	std::vector<Hostile*>hostiles;	
-	std::vector<Barrier*>barriers;
+	//std::vector<Barrier*>barriers;
 
 public:
 	MB_Invaders(int, int, int, int, int, const char*);
@@ -70,10 +70,10 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 		if (hostile_space == 1020) hostile_space = 120;
 	}
 
-	for (unsigned int i= 0; i < 10; ++i) {
-		Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
-		barriers.push_back(x);
-	}
+	//for (unsigned int i= 0; i < 10; ++i) {
+	//	Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
+	//	barriers.push_back(x);
+	//}
 
 	Fl::add_timeout(time, move_lasers, (void*)this);
 	Fl::add_timeout(hostile_time, add_hostiles, (void*)this);					//actually just makes hostiles visible and active
@@ -84,7 +84,6 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 	position(x, y);						//Window-Position
 	size_range(w, h, w, h);				//locks Window-Size
 	show();
-	Fl::run();
 }
 void MB_Invaders::move_lasers(void* addr) {
 
@@ -94,6 +93,7 @@ void MB_Invaders::move_lasers(void* addr) {
 	if (g_game_active) {
 		for (unsigned int i = 0; i < mbiw->lasers.size(); ++i) {
 			mbiw->lasers[i]->move(-10);							//projectile moves
+			mbiw->lasers[i]->draw();
 			if (mbiw->lasers[i]->get_pos().second <= 0) {			//projectile gets deleted when it reaches the top
 				Laser_beam* x = mbiw->lasers[i];
 				delete x;
@@ -201,10 +201,10 @@ int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
 		case FL_Escape:
 			exit(1);							
 		case FL_Left:case 97:
-			if (ship.get_pos().first > x - 25)ship.move(-15);				//move to the left
+			if (ship.get_pos().first > x - 25)ship.move(-25);				//move to the left
 			break;
 		case FL_Right:case 100:
-			if (ship.get_pos().first < length / 12 * 11 - 25)ship.move(15);	//move to the right
+			if (ship.get_pos().first < length / 12 * 11 - 25)ship.move(25);	//move to the right
 			break;
 		case 32:															//shots been fired
 			std::pair<int, int>shot{ ship.get_pos() };
@@ -248,4 +248,5 @@ int main() {
 	MB_Invaders win(50, 50, 1200, 800, 50,"Mettbrötchen Invaders");
 	Start_window sw{ 50, 50, 1200, 830 };
 
+	return Fl::run();
 }

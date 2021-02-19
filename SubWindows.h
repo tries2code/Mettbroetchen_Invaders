@@ -14,7 +14,7 @@
 #include<iomanip>
 #include<algorithm>
 
-class Record : Fl_Widget{
+class Record : Fl_Widget{				//Used to write stuff, like records for example. Basically a text Widget
 	int x;
 	int y;
 	int font_face;
@@ -36,7 +36,7 @@ class Start_window :public Fl_Window {
 	Record title{ x + width / 10,80,5,45,"Welcome to Mettbrötchen Invaders" };
 	Record instr1{ x + width / 10,200,5,30,"Press a/d or <-/-> to move." };
 	Record instr2{ x + width / 10,250,5,30,"Press space to shoot." };
-	Record instr3{ x + width / 10,380,5,30,"....and lower your expectations!" };
+	Record instr3{ x + width / 10,380,5,30,"....and lower your expectations or press Esc!" };
 	
 	Fl_Color fc = FL_DARK_CYAN;
 

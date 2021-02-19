@@ -56,7 +56,7 @@ void Laser_beam::draw() {
 }
 void Laser_beam::move(int b) {
 	y += b;
-	draw();
+	position(x, y);
 }
 void Laser_beam::set_color(Fl_Color c) { lc = c; }
 std::pair<int, int> Laser_beam::get_pos()const {
@@ -231,47 +231,3 @@ void Barrier::restore() {
 }
 std::vector<std::pair<int, int>>Barrier::get_pixels()const {return pixels;}
 
-
-
-
-
-//Pixel_Laser_beam not really working, maybe a waste of time
-
-Pixel_Laser_beam::Pixel_Laser_beam(int a, int b, int s): Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {
-	int temp_x = x;
-	int temp_y = y;
-
-	while (temp_y != (y - sz)) {
-		switch (thickness) {
-		case Thickness::thin:
-			pixels.push_back(std::make_pair(temp_x, temp_y));
-			break;
-		case Thickness::medium:
-			pixels.push_back(std::make_pair(temp_x, temp_y));
-			pixels.push_back(std::make_pair(temp_x + 1, temp_y));
-			break;
-		case Thickness::thick:
-			pixels.push_back(std::make_pair(temp_x, temp_y));
-			pixels.push_back(std::make_pair(temp_x + 1, temp_y));
-			pixels.push_back(std::make_pair(temp_x + 2, temp_y));
-			break;
-		}
-		--temp_y;
-	}
-}
-void Pixel_Laser_beam::draw() {
-	fl_color(lc);
-	for (unsigned int i = 0; i < pixels.size(); i++) fl_point(pixels[i].first, pixels[i].second);
-}
-void Pixel_Laser_beam::move(int a, int b) {
-
-	for (unsigned int i = 0; i < pixels.size(); i++) {
-		pixels[i].first += a;
-		pixels[i].second += b;
-	}
-}
-void Pixel_Laser_beam::set_color(Fl_Color c) { lc = c; }
-std::pair<int, int> Pixel_Laser_beam::get_pos() {
-	std::pair<int, int>laser{ x ,y };
-	return laser;
-}
