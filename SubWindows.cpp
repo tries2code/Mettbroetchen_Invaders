@@ -151,7 +151,7 @@ void Game_Over::save_score() {	//Loads existing data for txt file and adds curre
 	for (unsigned int i = 0; i < g_name.size(); ++i) {
 		if (isspace(g_name[i]))table += "_";
 		else table += g_name[i];
-		if (table.length() == 8)break;
+		if (table.length() == 32)break;
 	}
 	g_name = table;
 	data.emplace_back(g_score, g_name);

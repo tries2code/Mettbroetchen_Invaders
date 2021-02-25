@@ -2,8 +2,7 @@
 #include"Spaceship.h"
 #include"Backrounds.h"
 #include"Hostiles.h"
-#include<thread>
-
+#include<FL/Fl_Double_Window.H>
 //to do:
 //tidy up
 //make things less ugly
@@ -16,9 +15,9 @@ Highscores* g_hs = nullptr;
 Game_Over* g_go = nullptr;
 
 
-class MB_Invaders :public Fl_Window {
+class MB_Invaders :public Fl_Double_Window {
 							
-	double time = 0.025;				//timespan for reoccuring events
+	double time = 0.0025;				//timespan for reoccuring events
 	double hostile_time = 2;			//timespan for adding new rows of hostiles(will be increased to 8 after first run)
 	double hostile_moving_speed = 1;
 	int hostile_space = 120;			//distance between hostiles( gets incresed and reseted)
@@ -50,7 +49,7 @@ public:
 	void reset();
 };
 MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) : 
-	Fl_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
+	Fl_Double_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
 ship(525, 650, sz), check_hs(length - 95, y + 50, 90, 30, "Highscores"),
 backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 {
@@ -92,8 +91,8 @@ void MB_Invaders::move_lasers(void* addr) {
 	
 	if (g_game_active) {
 		for (unsigned int i = 0; i < mbiw->lasers.size(); ++i) {
-			mbiw->lasers[i]->move(-10);							//projectile moves
-			mbiw->lasers[i]->draw();
+			mbiw->lasers[i]->move(-10);								//projectile moves
+			mbiw->redraw();
 			if (mbiw->lasers[i]->get_pos().second <= 0) {			//projectile gets deleted when it reaches the top
 				Laser_beam* x = mbiw->lasers[i];
 				delete x;
