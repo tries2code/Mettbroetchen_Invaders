@@ -25,11 +25,8 @@ fltkimages.lib
 
 To Do:
 
--Increase frame-rate somehow so barriers can be added. They are commented out atm(see MB_Invaders Constructor).
-Once done, the code for damaging barriers by lasers and hostiles will be added.
+-Find an efficient way to add Barriers. This might requir rewriting everything
 
-
--Fix Lasers. I wish they could be moved as smooth as the spaceship, but that doesnt work, idk why...
 
 
 -Fine tuning on ship movement and shooting

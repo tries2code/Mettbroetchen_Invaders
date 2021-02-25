@@ -16,15 +16,15 @@ Game_Over* g_go = nullptr;
 
 
 class MB_Invaders :public Fl_Double_Window {
-							
-	double time = 0.0025;				//timespan for reoccuring events
+
+	double time = 0.00025;				//timespan for reoccuring events
 	double hostile_time = 2;			//timespan for adding new rows of hostiles(will be increased to 8 after first run)
 	double hostile_moving_speed = 1;
 	int hostile_space = 120;			//distance between hostiles( gets incresed and reseted)
 	int hostile_movement = 1;			//handles hostile moving pattern, gets increased and reseted
 	int hostile_row_start = 0;			//iterating value for std::vector<Hostile*>hostiles
 	int hostile_row_end = 10;			//iterating value for std::vector<Hostile*>hostiles
-	int x;								
+	int x;
 	int y;
 	int length;
 	int sz;								//handles size of things
@@ -33,7 +33,7 @@ class MB_Invaders :public Fl_Double_Window {
 	Spaceship ship;
 	Score_panel score;
 	std::vector<Laser_beam*>lasers;		//contains shots
-	std::vector<Hostile*>hostiles;	
+	std::vector<Hostile*>hostiles;
 	//std::vector<Barrier*>barriers;
 
 public:
@@ -43,15 +43,16 @@ public:
 	static void move_hostiles(void*);
 	static void kill_hostiles(void*);
 	static void speed_up(void*);
-	static void cb_hs(Fl_Widget*, void* addr) { ((MB_Invaders*)addr)->view_hs(); }
+	//static void damage_barriers(void*);
+	static void cb_hs(Fl_Widget*, void* addr) { ((MB_Invaders*)addr)->view_highscores(); }
 	int handle(int);
-	void view_hs();
+	void view_highscores();
 	void reset();
 };
-MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) : 
+MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) :
 	Fl_Double_Window(a, b, w, h, title), x(a), y(b), length(w), sz(s),
-ship(525, 650, sz), check_hs(length - 95, y + 50, 90, 30, "Highscores"),
-backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
+	ship(525, 650, sz), check_hs(length - 95, y + 50, 90, 30, "Highscores"),
+	backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 {
 	check_hs.clear_visible_focus();		//prevents the button from being pushed by space- or enter key
 	check_hs.callback(cb_hs, this);
@@ -70,7 +71,7 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 	}
 
 	//for (unsigned int i= 0; i < 10; ++i) {
-	//	Barrier* x = new Barrier{ 75 + (100 * (int)i),500,sz };
+	//	Barrier* x = new Barrier{ 75 + (100 * (int)i),450,sz };
 	//	barriers.push_back(x);
 	//}
 
@@ -78,6 +79,7 @@ backround(x, y, w / 12 * 11 + 2, h), score(length - 95, y + 20)
 	Fl::add_timeout(hostile_time, add_hostiles, (void*)this);					//actually just makes hostiles visible and active
 	Fl::add_timeout(hostile_moving_speed, move_hostiles, (void*)this);			//moves only active hostiles
 	Fl::add_timeout(time, kill_hostiles, (void*)this);
+	//Fl::add_timeout(time, damage_barriers, (void*)this);
 	Fl::add_timeout(time, speed_up, (void*)this);
 
 	position(x, y);						//Window-Position
@@ -88,10 +90,10 @@ void MB_Invaders::move_lasers(void* addr) {
 
 	MB_Invaders* mbiw = (MB_Invaders*)addr;
 	Fl::add_timeout(mbiw->time, move_lasers, addr);
-	
+
 	if (g_game_active) {
 		for (unsigned int i = 0; i < mbiw->lasers.size(); ++i) {
-			mbiw->lasers[i]->move(-10);								//projectile moves
+			mbiw->lasers[i]->move(-5);								//projectile moves
 			mbiw->redraw();
 			if (mbiw->lasers[i]->get_pos().second <= 0) {			//projectile gets deleted when it reaches the top
 				Laser_beam* x = mbiw->lasers[i];
@@ -100,12 +102,11 @@ void MB_Invaders::move_lasers(void* addr) {
 				mbiw->lasers.shrink_to_fit();
 			}
 		}
-	}	
+	}
 }
 void MB_Invaders::add_hostiles(void* addr) {						//actually just makes hostiles visible and active
 
 	MB_Invaders* mbiw = (MB_Invaders*)addr;
-	Fl::add_timeout(mbiw->hostile_time, add_hostiles, addr);
 
 	if (g_game_active) {
 
@@ -118,9 +119,10 @@ void MB_Invaders::add_hostiles(void* addr) {						//actually just makes hostiles
 			mbiw->hostile_row_start = 0;
 			mbiw->hostile_row_end = 10;
 		}
-
 		if (mbiw->hostile_time == 2)mbiw->hostile_time = 8;
 	}
+	Fl::add_timeout(mbiw->hostile_time, add_hostiles, addr);
+
 }
 void MB_Invaders::move_hostiles(void* addr) {
 
@@ -178,19 +180,58 @@ void MB_Invaders::speed_up(void* addr) {					//increases speed of hostiles depen
 	MB_Invaders* mbiw = (MB_Invaders*)addr;
 	Fl::add_timeout(mbiw->time, speed_up, addr);
 
-	if (g_score > 150) {
+	if (g_score > 75) {
 		mbiw->hostile_moving_speed = 0.75;
 		mbiw->hostile_time = 6;
 	}
-	if (g_score > 300) {
+	if (g_score > 150) {
 		mbiw->hostile_moving_speed = 0.5;
 		mbiw->hostile_time = 4;
 	}
-	if (g_score > 600) {
+	if (g_score > 225) {
 		mbiw->hostile_moving_speed = 0.25;
 		mbiw->hostile_time = 2.1;
 	}
 }
+/*
+void MB_Invaders::damage_barriers(void* addr) {
+	MB_Invaders* mbiw = (MB_Invaders*)addr;
+	Fl::add_timeout(mbiw->time, damage_barriers, addr);
+
+	std::vector<std::pair<int, int>> table;
+	int table_x=0;
+	int table_y=0;
+	bool b_damage = false;
+	for (int i = 0; i < mbiw->barriers.size(); ++i) {
+		table = mbiw->barriers[i]->get_pixels();
+		reverse(table.begin(), table.end());
+		for (int j = 0; j < table.size(); ++j) {
+			for (int k = 0; k < mbiw->lasers.size(); ++k) {
+				mbiw->lasers[k]->draw();
+
+				table_x = mbiw->lasers[k]->get_pos().first;
+				table_y = mbiw->lasers[k]->get_pos().second;
+				if (table[j].first == table_x && table[j].second <= table_y) {
+					mbiw->barriers[i]->damage(table[j].first, table[j].second);
+					mbiw->barriers[i]->damage(table[j].first+1, table[j].second);
+					mbiw->barriers[i]->damage(table[j].first - 1, table[j].second);
+					mbiw->barriers[i]->damage(table[j].first - 1, table[j].second-1);
+					b_damage = true;
+
+					mbiw->redraw();
+				}
+				if (b_damage) {
+					Laser_beam* x = mbiw->lasers[k];
+					delete x;
+					mbiw->lasers.erase(mbiw->lasers.begin() +k);
+					mbiw->lasers.shrink_to_fit();
+					b_damage = false;
+				}
+			}
+		}
+	}
+}
+*/
 int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
 	int ret = Fl_Window::handle(event);										//Needed for Mouse-Klick Events. Can be used as return value
 
@@ -198,7 +239,7 @@ int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
 
 		switch (Fl::event_key()) {
 		case FL_Escape:
-			exit(1);							
+			exit(1);
 		case FL_Left:case 97:
 			if (ship.get_pos().first > x - 25)ship.move(-25);				//move to the left
 			break;
@@ -215,7 +256,7 @@ int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
 	}
 	return ret;
 }
-void MB_Invaders::view_hs() {
+void MB_Invaders::view_highscores() {
 	g_game_active = false;
 	if (g_hs) delete g_hs;
 	g_hs = new Highscores{ 50, 50, 1200, 850,"Highscores" };
@@ -244,7 +285,7 @@ void MB_Invaders::reset() {
 
 int main() {
 	srand((unsigned int)time(0));
-	MB_Invaders win(50, 50, 1200, 800, 50,"Mettbrötchen Invaders");
+	MB_Invaders win(50, 50, 1200, 800, 50, "Mettbrötchen Invaders");
 	Start_window sw{ 50, 50, 1200, 830 };
 
 	return Fl::run();
