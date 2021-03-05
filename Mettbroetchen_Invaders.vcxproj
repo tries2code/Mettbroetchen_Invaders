@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Backrounds.cpp" />
+    <ClCompile Include="Barriers.cpp" />
     <ClCompile Include="SubWindows.cpp" />
     <ClCompile Include="Hostiles.cpp" />
     <ClCompile Include="main.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Backrounds.h" />
+    <ClInclude Include="Barriers.h" />
     <ClInclude Include="Hostiles.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="SubWindows.h" />
