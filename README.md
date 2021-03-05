@@ -1,7 +1,7 @@
 # Mettbroetchen_Invaders
-A Space Invaders Clone for practice
 
 This is a basic Space Invaders Clone, using FLTK.
+
 
 
 Linker Input debug:
@@ -15,6 +15,7 @@ comctl32.lib
 fltkimagesd.lib
 
 
+
 Linker Input release:
 
 
@@ -24,6 +25,7 @@ fltk.lib
 wsock32.lib
 comctl32.lib
 fltkimages.lib
+
 
 
 To Do:
