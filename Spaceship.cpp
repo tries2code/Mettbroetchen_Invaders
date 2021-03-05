@@ -47,6 +47,7 @@ std::pair<int, int> Spaceship::get_pos()const {
 	return cannon;
 }
 
+
 Laser_beam::Laser_beam(int a, int b, int s) :
 	Fl_Widget(a, b, a, b), x(a), y(b), sz(s) {}
 void Laser_beam::draw() {
@@ -54,6 +55,7 @@ void Laser_beam::draw() {
 		fl_line_style(0, 6, 0);
 		fl_line(x, y, x, y - sz);
 }
+
 
 void Laser_beam::move(int b) {
 	y += b;

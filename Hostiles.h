@@ -13,17 +13,17 @@
 class Hostile :Fl_Widget {			
 	int x;
 	int y;
-	int start_x;
-	int start_y;
+	int start_x;				//original position, used for reset_pos()
+	int start_y;				//original position, used for reset_pos()
 
-	int start_w=0;
-	int end_w=0;
-	int re_start_w=0;
-	int re_end_w=0;
+	int start_w=0;				//to calculate attack surface
+	int end_w=0;				//to calculate attack surface
+	int re_start_w=0;			//original attck surface position, used for reset_pos()
+	int re_end_w=0;				//original attck surface position, used for reset_pos()
 
 	std::vector<std::pair<int, int>>attack_surface;
 
-	Fl_Box b;
+	Fl_Box b;					//carrier for the .png file
 public:
 	Hostile(int, int);
 	void draw();

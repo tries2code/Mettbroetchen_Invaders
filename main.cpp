@@ -9,12 +9,9 @@
 #include<thread>
 #include<map>
 
-//to do:
-//tidy up
-//make things less ugly
 
-std::vector<int>ys{ 560,570,580 };
-std::vector<int>yss{ 560,570 };
+std::vector<int>ys{ 560,570,580 };		//for barrier damage coords
+std::vector<int>yss{ 560,570 };			//for barrier damage coords
 
 //Global Variables in uses, starting with g_
 int g_score = 0;
@@ -23,7 +20,7 @@ bool g_game_restart = false;
 std::string g_name = "unknown";
 Highscores* g_hs = nullptr;
 Game_Over* g_go = nullptr;
-std::map<int, std::vector<int>>g_d_coords;
+std::map<int, std::vector<int>>g_d_coords;				//barrier damage coords
 std::map<int, std::vector<int>>g_d_coords_backup;
 class MB_Invaders :public Fl_Double_Window {
 
@@ -110,7 +107,6 @@ MB_Invaders::MB_Invaders(int a, int b, int w, int h, int s, const char* title) :
 	size_range(w, h, w, h);				//locks Window-Size
 	show();
 }
-
 void MB_Invaders::move_lasers(void* addr) {
 
 	MB_Invaders* mbiw = (MB_Invaders*)addr;
@@ -318,7 +314,6 @@ int MB_Invaders::handle(int event) {										//fltk handle for keyboard input
 	}
 	return ret;
 }
-
 void MB_Invaders::view_highscores() {
 	g_game_active = false;
 	if (g_hs) delete g_hs;
@@ -347,7 +342,6 @@ void MB_Invaders::reset() {
 	for (unsigned int i = 0; i < barriers.size(); ++i)barriers[i]->restore();
 	g_d_coords = g_d_coords_backup;
 }
-
 
 int main() {
 	srand((unsigned int)time(0));

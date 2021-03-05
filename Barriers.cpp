@@ -131,7 +131,7 @@ vec.push_back(re7);
 vec.push_back(re8);
 }
 int Barrier::get_x() { return x; }
-void Barrier::draw() {}
+void Barrier::draw() {}						//has to be declared and defined since Fl_Widget::draw() is pure virtual
 void Barrier::damage(int a, int b) {
 	for (unsigned int i = 0; i < vec.size(); ++i) if (vec[i]->x == a && vec[i]->y == b)vec[i]->set_color(FL_DARK_BLUE);
 }

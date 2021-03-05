@@ -16,7 +16,7 @@ public:
 	void draw();
 };
 
-class Backround_lv1 :public Fl_Widget {
+class Backround_lv1 :public Fl_Widget {		//Backround for mainscreen
 	int x;
 	int y;
 	int w;
@@ -36,7 +36,7 @@ public:
 	void draw();
 };
 
-class Backround_HS_Screen :Fl_Widget {
+class Backround_HS_Screen :Fl_Widget {			//Backround for Highscore Screen
 	int x;
 	int y;
 	int w;
@@ -46,7 +46,7 @@ public:
 	void draw();
 };
 
-class Backround_GO_Screen :Fl_Widget {
+class Backround_GO_Screen :Fl_Widget {		//Backround for Game Over Screen
 	int x;
 	int y;
 	int w;
