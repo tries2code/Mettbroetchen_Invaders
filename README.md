@@ -25,8 +25,8 @@ fltkimages.lib
 
 To Do:
 
--Find an efficient way to add Barriers. This might requir rewriting everything
-
-
 
 -Fine tuning on ship movement and shooting
+
+
+-Fine tuning barrier damage

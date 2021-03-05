@@ -13,14 +13,13 @@ void Score_panel::draw() {
 }
 
 Backround_lv1::Backround_lv1(int a, int b, int c, int d) :
-	Fl_Widget(a, b, c, d), x(a-50), y(b-50), w(c), h(d) {
+	Fl_Widget(a, b, c, d), x(a), y(b), w(c), h(d) {
 	position(x, y);
 }
 void Backround_lv1::draw() {
-
-	fl_color(FL_DARK_BLUE);				//backround color
-	fl_rectf(x, y, w, h);
-
+		fl_color(FL_DARK_BLUE);				//backround color
+		fl_rectf(x, y, w, h);
+	
 	fl_color(FL_DARK_RED);				//moon? mars? idk...
 	fl_arc(100, 200, 100, 100, 0, 360);
 	fl_pie(100, 200, 100, 100, 0, 360);
@@ -275,7 +274,12 @@ void Backround_lv1::draw() {
 	fl_draw("HOTEL", 392, 692);
 	fl_font(7, 23);
 	fl_draw("HOTEL", 195, 705);
+
+	
+		
 }
+
+
 
 Backround_Start_Screen::Backround_Start_Screen(int a, int b, int c, int d) :
 	Fl_Widget(a, b, c, d), x(a - 50), y(b - 50), w(c), h(d) {

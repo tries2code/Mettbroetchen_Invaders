@@ -1,4 +1,6 @@
 #pragma once
+#include<map>
+
 #include<FL/Fl.h>
 #include<FL/Fl_Widget.h>
 #include<FL/fl_draw.H>
@@ -14,7 +16,7 @@ public:
 	void draw();
 };
 
-class Backround_lv1 :Fl_Widget {
+class Backround_lv1 :public Fl_Widget {
 	int x;
 	int y;
 	int w;
