@@ -33,7 +33,7 @@ class Start_window :public Fl_Window {
 	int width;
 	Backround_Start_Screen backround;
 	Fl_Button start;
-	Record title{ x + width / 10,80,5,45,"Welcome to Mettbrötchen Invaders" };
+	Record title{ x + width / 10,80,5,45,"Welcome to MettbrÃ¶tchen Invaders" };
 	Record instr1{ x + width / 10,200,5,30,"Press a/d or <-/-> to move." };
 	Record instr2{ x + width / 10,250,5,30,"Press space to shoot." };
 	Record instr3{ x + width / 10,380,5,30,"....and lower your expectations or press Esc!" };

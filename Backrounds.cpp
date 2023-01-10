@@ -5,7 +5,7 @@ extern int g_score;
 Score_panel::Score_panel(int a, int b):Fl_Widget(a,b,a,b),x(a),y(b) {} //Shows score while playing
 void Score_panel::draw() {
 	char points[50];
-	sprintf_s(points, "%d", g_score);
+	sprintf(points, "%d", g_score);
 	fl_color(FL_DARK_CYAN);
 	fl_font(5, 19);
 	fl_draw("Score:", x, y);

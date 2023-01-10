@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "OpenGl-Test",
+            "type": "process",
+            "command": "g++",
+            "args": [
+                "-g",
+                "Backrounds.cpp",
+                "Barriers.cpp",
+                "Hostiles.cpp",
+                "Spaceship.cpp",
+                "SubWindows.cpp",
+                "${file}",
+                "-o",
+                "main",
+                "-lfltk",
+                "-lfltk_images",
+                "-lpthread"
+                
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            //"problemMatcher": {                   //braucht man das?
+            //   "base": "$gcc",
+            //   "fileLocation": "absolute"
+            //},
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+            
+            
+        }
+    ]
+}

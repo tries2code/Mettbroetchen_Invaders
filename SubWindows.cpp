@@ -120,7 +120,7 @@ enter_name( 565,400,210,30,"Enter your name" )
 	Record* r1 = new Record{ 200,325,5,60,"Your Score" };
 	r1->set_color(fc);
 	char points[50];
-	sprintf_s(points, "%d", g_score);
+	sprintf(points, "%d", g_score);
 	Record* r3 = new Record{ 730,325,5,90,points };
 	r3->set_color(fc);
 

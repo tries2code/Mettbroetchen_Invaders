@@ -24,7 +24,7 @@ std::map<int, std::vector<int>>g_d_coords;				//barrier damage coords
 std::map<int, std::vector<int>>g_d_coords_backup;
 class MB_Invaders :public Fl_Double_Window {
 
-	double time = 0.00025;				//timespan for reoccuring events
+	double time = 0.0025;				//timespan for reoccuring events
 	double hostile_time = 2;			//timespan for adding new rows of hostiles(will be increased to 8 after first run)
 	double hostile_moving_speed = 2.5;
 	int hostile_space = 120;			//distance between hostiles( gets incresed and reseted)
@@ -124,6 +124,7 @@ void MB_Invaders::move_lasers(void* addr) {
 				delete x;
 				mbiw->lasers.erase(mbiw->lasers.begin() + i);
 				mbiw->lasers.shrink_to_fit();
+				Fl::redraw();
 			}
 
 			if (mbiw->lasers[i]->get_pos().second <= 580 && mbiw->lasers[i]->get_pos().second >= 560) {		//Checks if projectile is in y_range of a barrier
@@ -144,6 +145,7 @@ void MB_Invaders::move_lasers(void* addr) {
 						}
 					}
 				}
+				Fl::redraw();
 			}
 			redrawer.join();
 		}
@@ -345,7 +347,7 @@ void MB_Invaders::reset() {
 
 int main() {
 	srand((unsigned int)time(0));
-	MB_Invaders win(50, 50, 1200, 800, 50, "Mettbrötchen Invaders");
+	MB_Invaders win(50, 50, 1200, 800, 50, "MettbrÃ¶tchen Invaders");
 	Start_window sw{ 50, 50, 1200, 830 };
 
 	return Fl::run();
