@@ -20,6 +20,7 @@
                 "-lfltk",
                 "-lfltk_images",
                 "-lpthread"
+               
                 
             ],
             "options": {

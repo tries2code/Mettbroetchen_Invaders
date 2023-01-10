@@ -1,5 +1,5 @@
 #pragma once
-#include<FL/Fl_Window.h>
+#include<FL/Fl_Window.H>
 #include<FL/fl_draw.H>
 #include<FL/Fl_Input.H>
 #include<FL/Fl_Button.H>

@@ -1,6 +1,6 @@
 #pragma once
-#include<FL/Fl.h>
-#include<FL/Fl_Widget.h>
+#include<FL/Fl.H>
+#include<FL/Fl_Widget.H>
 #include<FL/fl_draw.H>
 #include<vector>
 

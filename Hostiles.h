@@ -5,7 +5,7 @@
 #include<vector>
 
 #include<FL/Fl_Box.H>
-#include<FL/Fl_Widget.h>
+#include<FL/Fl_Widget.H>
 #include<FL/Fl_PNG_Image.H>
 #include<FL/fl_draw.H>
 
