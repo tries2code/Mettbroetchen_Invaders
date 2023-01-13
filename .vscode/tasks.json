@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "OpenGl-Test",
+            "label": "Build_MBI",
             "type": "process",
             "command": "g++",
             "args": [
@@ -14,7 +14,7 @@
                 "Hostiles.cpp",
                 "Spaceship.cpp",
                 "SubWindows.cpp",
-                "${file}",
+                "main.cpp",
                 "-o",
                 "main",
                 "-lfltk",

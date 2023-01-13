@@ -123,7 +123,6 @@ void MB_Invaders::move_lasers(void* addr) {
 				Laser_beam* x = mbiw->lasers[i];
 				delete x;
 				mbiw->lasers.erase(mbiw->lasers.begin() + i);
-				mbiw->lasers.shrink_to_fit();
 				Fl::redraw();
 			}
 
