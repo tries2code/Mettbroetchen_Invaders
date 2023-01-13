@@ -6,35 +6,30 @@ This is a basic Space Invaders Clone, using FLTK.
 
 Linker Input debug:
 
-
-fltkzlibd.lib
-fltkpngd.lib
-fltkd.lib
-wsock32.lib
-comctl32.lib
-fltkimagesd.lib
+    fltkzlibd.lib
+    fltkpngd.lib
+    fltkd.lib
+    wsock32.lib
+    comctl32.lib
+    fltkimagesd.lib
 
 
 
 Linker Input release:
 
-
-fltkzlib.lib
-fltkpng.lib
-fltk.lib
-wsock32.lib
-comctl32.lib
-fltkimages.lib
-
+    fltkzlib.lib
+    fltkpng.lib
+    fltk.lib
+    wsock32.lib
+    comctl32.lib
+    fltkimages.lib
 
 
 To Do:
 
 
--Fine tuning on ship movement and shooting
-
-
--Fine tuning barrier damage
+    -Fine tuning on ship movement and shooting
+    -Fine tuning barrier damage
 
 
 
@@ -53,7 +48,7 @@ Next to the FLTK stuff, my code logic itself is provbably flawed as well. Some p
 and/or smarter, and also with less technical debt. Luckyly, this game is too basic to care for the latter.
 
 
-
+//Ab hier Linux-Version///////////////////////////////////////////////////////////////////////////////////////////////////////////
 11.01.2023
 DOCKER:
 
@@ -82,6 +77,7 @@ Hier eine funktionierende Dockerfile auf archlinux-basis, aber etwas groß(Imgag
 
 
 Hier eine funktionierende Dockerfile auf alpine-basis, wehsentlich kleiner(Imgage-Size 454MB). Allerdings sieht man hier den Laser nicht.
+    
     FROM alpine:latest
 
     # Kopiert Daten des aktuellen Ordners in den angegebenen Image-Ordner
