@@ -102,11 +102,109 @@ Hier eine funktionierende Dockerfile auf alpine-basis, wehsentlich kleiner(Imgag
     LABEL Name=mettbroetcheninvaderss Version=0.0.1
 
 
-Container erstellen und öffnen:
+Container erstellen und öffnen(-p ist in diesem Fall nicht nötig):
 
     docker run -it \
         -e RAM=8 \
         -e cpu=max \
+        -p 5000:5000 \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e "DISPLAY=${DISPLAY:-:0.0}" \
+        --name mbi-app \
+        --restart=on-failure:5 \
         mbi
+
+
+
+
+15.01.2023
+Multi-Stage-Build(Imgage-Size 845MB).: Mehrere Images werden in einer Dockerfile nacheiander, und aufeinander aufbauend,gebaut.
+Sinn und Zweck ist, im finalen Image ausschließlich die Layer zu integrieren, welche auch dort rein gehören.
+In diesem Fall wird gcc beim finallen Image weggelassen, da es nur in "builder" zum kompilieren benötigt wird.
+Im Gegensatz dazu wird gnome-terminal nur für die Ausführung des Programms benötigt und wird dementsprechend nicht
+in "builder" geladen.
+
+
+####Multi-Stage-Build mit Arch#########################################################################
+FROM archlinux:latest as builder
+
+# Setzt den aktuellen Pfad
+WORKDIR /usr/src/myapp
+# Kopiert Daten des aktuellen Ordners in den angegebenen Image-Ordner
+COPY . /usr/src/myapp
+
+#Installation von Abhänigkeiten. 
+RUN yes | pacman -Sy  gcc \
+ && yes | pacman -Sy  fltk
+
+# Code kompilieren
+RUN g++ -g  Backrounds.cpp Barriers.cpp Hostiles.cpp Spaceship.cpp SubWindows.cpp main.cpp -o main -lfltk -lfltk_images -lpthread
+
+
+####Production-Build (ohne Bezeichnung)#######################################################
+
+FROM archlinux:latest
+
+WORKDIR /usr/src/myapp
+#Erster RUN-Befehl ist für die Schrift...
+RUN yes | pacman -Sy gnome-terminal \
+ && yes | pacman -Sy  fltk
+
+# Kopiert binary und Bilder-Ordner aus "builder" in den angegebenen Image-Ordner
+COPY --from=builder /usr/src/myapp/main /usr/src/myapp/main 
+COPY --from=builder /usr/src/myapp/MBs /usr/src/myapp/MBs 
+COPY --from=builder /usr/src/myapp/Highscores.txt /usr/src/myapp/Highscores.txt
+
+#Binary ausführen
+CMD ["./main"]  
+
+#?
+LABEL Name=mettbroetcheninvaderss Version=0.0.1
+
+
+
+
+
+
+
+16.01.2023
+Multistage Build mit Alpine:
+
+ ####Multi-Stage-Build mit Alpine#########################################################################
+
+FROM alpine:latest as builder
+
+# Setzt den aktuellen Pfad
+WORKDIR /usr/src/myapp
+# Kopiert Daten des aktuellen Ordners in den angegebenen Image-Ordner
+COPY . /usr/src/myapp
+
+#Installation von Abhänigkeiten. Erster RUN-Befehl ist für die Schrift...
+RUN yes | apk add g++ && \
+    yes | apk add fltk-dev
+
+# Code kompilieren
+RUN g++ -g  Backrounds.cpp Barriers.cpp Hostiles.cpp Spaceship.cpp SubWindows.cpp main.cpp -o main -lfltk -lfltk_images -lpthread
+  
+
+####Production-Build (ohne Bezeichnung)#######################################################
+FROM alpine:latest
+
+# Setzt den aktuellen Pfad
+WORKDIR /usr/src/myapp
+# Kopiert binary, Bilder-Ordner, und Highscores.txt aus "builder" in den angegebenen Image-Ordner
+COPY --from=builder /usr/src/myapp/main /usr/src/myapp/main 
+COPY --from=builder /usr/src/myapp/MBs /usr/src/myapp/MBs 
+COPY --from=builder /usr/src/myapp/Highscores.txt /usr/src/myapp/Highscores.txt
+
+#Installation von Abhänigkeiten. Erster RUN-Befehl ist für die Schrift...
+RUN apk --update --upgrade --no-cache add fontconfig ttf-freefont font-noto terminus-font \ 
+ && fc-cache -f \ 
+ && fc-list | sort \
+ && yes | apk add fltk-dev
+
+
+#Programm ausführen
+CMD ["./main"]
+#?
+LABEL Name=mettbroetcheninvaderss Version=0.0.1
